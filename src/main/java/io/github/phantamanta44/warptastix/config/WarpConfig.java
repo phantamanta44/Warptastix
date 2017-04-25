@@ -26,7 +26,7 @@ public class WarpConfig {
         SPAWN.load(config.getConfigurationSection("Spawn"));
         EFFECT.load(config.getConfigurationSection("Effect"));
         SIGN.load(config.getConfigurationSection("Sign"));
-        ECON.load(config.getConfigurationSection("Economy"))
+        ECON.load(config.getConfigurationSection("Economy"));
     }
     
     public static class Warp {
