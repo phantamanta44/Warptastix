@@ -55,6 +55,9 @@ permissions:
     descritpion: Allows you to list warps.
   warptastix.list.other:
     descritpion: Allows you to list another player's warps.
-  warptastix.breaksign:
-    description: Allows you to break warp signs.
-  # TODO Finish
+  warptastix.makesign:
+    description: Allows you to make warp signs.
+  warptastix.info:
+    description: Allows you to view warp info.
+  warptastix.admin:
+    description: Gives you all permissions.
