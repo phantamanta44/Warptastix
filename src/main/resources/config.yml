@@ -1,0 +1,40 @@
+# Warps
+Warps:
+  WarpLimitNodes: [3, 5, 10] # Permissions nodes to generate for warp limits
+  Warmup: 0 # Warmup time for warping, in seconds - taking damage will cancel the warp
+  Cooldown: 0 # Cooldown time for warping, in seconds
+
+# Homes
+Homes:
+  HomeOnDeath: false # Whether to teleport players home on death instead of to their bed
+  Warmup: 0 # Warmup time for teleporting home, in seconds - taking damage will cancel the warp
+  Cooldown: 0 # Cooldown time for teleporting home, in seconds
+
+# Spawn management
+Spawn:
+  SpawnAtSpawn: true # Whether to spawn players at the world spawn or not
+  Warmup: 0 # Warmup time for teleporting to spawn, in seconds - taking damage will cancel the warp
+  Cooldown: 0 # Cooldown time for teleporting to spawn, in seconds
+
+# Teleportation effect
+TeleportEffect:
+  Enable: true # Whether to play teleportation effects on warp or not
+  Duration: 1.5 # The duration of the teleportation effects, in seconds
+
+# Signs
+Signs:
+  Enable: true # Whether to enable warp signs or not
+  WarpSignTitle: "[Warp]" # The title line for warp signs
+  SpawnSignTitle: "[Spawn]" # The title line for spawn teleportation signs
+
+# Economy
+Economy:
+  Enable: true # Whether to enable economy integration or not - requires Vault!
+  Warp:
+    SetPrice: 0 # Price on setting warps
+    WarpPrice: 0 # Price on warping to warps
+  Home:
+    SetPrice: 0 # Price on setting homes
+    WarpPrice: 0 # Price on warping to homes
+  Spawn:
+    WarpPrice: 0 # Price on warping to spawn
