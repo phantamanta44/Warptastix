@@ -59,5 +59,15 @@ permissions:
     description: Allows you to make warp signs.
   warptastix.info:
     description: Allows you to view warp info.
-  warptastix.admin:
-    description: Gives you all permissions.
+  warptastix.home:
+    description: Allows you to set and use homes.
+  warptastix.home.other:
+    description: Allows you to set and use another player's home.
+  warptastix.spawn:
+    description: Allows you to teleport to spawn.
+  warptastix.nocost:
+    description: Allows you to bypass all prices.
+  warptastix.nowarmup:
+    description: Allows you to bypass all warmup times.
+  warptastix.nocooldown:
+    description: Allows you to bypass all cooldown times.

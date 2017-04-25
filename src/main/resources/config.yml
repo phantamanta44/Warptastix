@@ -1,6 +1,7 @@
 # Warps
 Warps:
-  WarpLimitNodes: [3, 5, 10] # Permissions nodes to generate for warp limits
+  DefaultLimit: 3
+  LimitNodes: [5, 10] # Permissions nodes to generate for warp limits
   Warmup: 0 # Warmup time for warping, in seconds - taking damage will cancel the warp
   Cooldown: 0 # Cooldown time for warping, in seconds
 
@@ -31,10 +32,10 @@ Signs:
 Economy:
   Enable: true # Whether to enable economy integration or not - requires Vault!
   Warp:
-    SetPrice: 0 # Price on setting warps
+    SetPrice: 100 # Price on setting warps
     WarpPrice: 0 # Price on warping to warps
   Home:
-    SetPrice: 0 # Price on setting homes
+    SetPrice: 100 # Price on setting homes
     WarpPrice: 0 # Price on warping to homes
   Spawn:
     WarpPrice: 0 # Price on warping to spawn
