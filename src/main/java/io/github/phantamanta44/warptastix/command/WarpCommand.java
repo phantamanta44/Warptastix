@@ -1,5 +1,6 @@
 package io.github.phantamanta44.warptastix.command;
 
+import io.github.phantamanta44.warptastix.WTXLang;
 import io.github.phantamanta44.warptastix.Warptastix;
 import io.github.phantamanta44.warptastix.command.condition.Conditions;
 import io.github.phantamanta44.warptastix.data.WTXAction;
@@ -39,7 +40,9 @@ public class WarpCommand extends WTXCommand {
         flushConditions();
         target.teleport(warp.getLocation().getLocation()); // TODO Warptastic magic
         // TODO Warp effect
-        // TODO Send confirmation message(s)
+        if (!target.equals(sender))
+            WTXLang.send(sender, "warp.warp.other", target.getName(), warp.getName());
+        WTXLang.send(target, "warp.warp", warp.getName());
     }
 
 }

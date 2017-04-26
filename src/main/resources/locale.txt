@@ -1,0 +1,9 @@
+# General
+prefix=&8[Warptastix] &r
+noperms=&cYou don't have permission to do that!
+
+# Warps
+warp.warp=&6Warped to &7%s&6.
+warp.warp.other=&6Warped &7%s&6 to &7%s&6.
+
+# TODO Finish
