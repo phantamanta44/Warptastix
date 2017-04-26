@@ -1,7 +1,7 @@
 package io.github.phantamanta44.warptastix.config;
 
 import io.github.phantamanta44.warptastix.Warptastix;
-import javafx.util.Pair;
+import io.github.phantamanta44.warptastix.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.permissions.Permission;
@@ -44,9 +44,9 @@ public class WTXConfig {
             limitPerms.clear();
             config.getIntegerList("LimitNodes").stream()
                     .sorted()
-                    .map(node -> new Pair<>(new Permission("warptastix.limit." + Integer.toString(node)), node))
-                    .peek(p -> limitPerms.put(p.getKey(), p.getValue()))
-                    .map(Pair::getKey)
+                    .map(node -> Pair.of(new Permission("warptastix.limit." + Integer.toString(node)), node))
+                    .peek(p -> limitPerms.put(p.getA(), p.getB()))
+                    .map(Pair::getA)
                     .forEach(Bukkit.getServer().getPluginManager()::addPermission);
             warmup = (int)Math.floor(config.getDouble("Warmup", 0D) * 20);
             cooldown = (int)Math.floor(config.getDouble("Cooldown", 0D) * 20);
