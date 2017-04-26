@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class WTXConfig {
     
-    public static final Warp WARP = new Warp();
-    public static final Home HOME = new Home();
-    public static final Spawn SPAWN = new Spawn();
-    public static final Effect EFFECT = new Effect();
-    public static final Sign SIGN = new Sign();
-    public static final Economy ECON = new Economy();
+    public static final WarpConfig WARP = new WarpConfig();
+    public static final HomeConfig HOME = new HomeConfig();
+    public static final SpawnConfig SPAWN = new SpawnConfig();
+    public static final EffectConfig EFFECT = new EffectConfig();
+    public static final SignConfig SIGN = new SignConfig();
+    public static final EconomyConfig ECON = new EconomyConfig();
 
     public static void load() {
         Warptastix.INSTANCE.saveDefaultConfig();
@@ -29,7 +29,7 @@ public class WTXConfig {
         ECON.load(config.getConfigurationSection("Economy"));
     }
     
-    public static class Warp {
+    public static class WarpConfig {
 
         private int defaultLimit;
         private Map<Permission, Integer> limitPerms = new HashMap<>();
@@ -70,7 +70,7 @@ public class WTXConfig {
 
     }
 
-    public static class Home {
+    public static class HomeConfig {
 
         private boolean homeOnDeath;
         private int warmup;
@@ -98,7 +98,7 @@ public class WTXConfig {
 
     }
 
-    public static class Spawn {
+    public static class SpawnConfig {
 
         private boolean spawnAtSpawn;
         private int warmup;
@@ -126,7 +126,7 @@ public class WTXConfig {
 
     }
 
-    public static class Effect {
+    public static class EffectConfig {
 
         private boolean enable;
         private int duration;
@@ -148,7 +148,7 @@ public class WTXConfig {
 
     }
 
-    public static class Sign {
+    public static class SignConfig {
 
         private boolean enable;
         private String warpTitle;
@@ -176,7 +176,7 @@ public class WTXConfig {
 
     }
 
-    public static class Economy {
+    public static class EconomyConfig {
 
         private boolean enable;
         private int warpSetPrice;

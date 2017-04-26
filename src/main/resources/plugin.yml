@@ -5,6 +5,9 @@ website: http://phanta.xyz
 main: io.github.phantamanta44.warptastix.Warptastixix
 softdepend: [Vault]
 commands:
+  warptastix:
+    usage: "/warptastix [-r]"
+    description: Plugin management command.
   warp:
     usage: "/warp <warp> [player]"
     description: Travels to a warp.
@@ -39,8 +42,12 @@ commands:
     usage: "/spawn [player]"
     description: Travels to the world spawn.
 permissions:
+  warptastix.reload:
+    description: Allows you to reload the plugin.
   warptastix.warp:
     description: Allows you to use warps.
+  warptastix.warp.bypassprivate:
+    description: Allows you to use another player's private warps.
   warptastix.warp.other:
     description: Allows you to warp other players.
   warptastix.setwarp.public:
@@ -65,6 +72,8 @@ permissions:
     description: Allows you to set and use another player's home.
   warptastix.spawn:
     description: Allows you to teleport to spawn.
+  warptastix.spawn.other:
+    description: Allows you to teleport other players to spawn.
   warptastix.nocost:
     description: Allows you to bypass all prices.
   warptastix.nowarmup:
