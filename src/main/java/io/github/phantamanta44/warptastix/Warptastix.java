@@ -1,5 +1,6 @@
 package io.github.phantamanta44.warptastix;
 
+import io.github.phantamanta44.warptastix.command.WarpCommand;
 import io.github.phantamanta44.warptastix.config.WTXConfig;
 import io.github.phantamanta44.warptastix.data.HomeDB;
 import io.github.phantamanta44.warptastix.data.WarpDB;
@@ -34,6 +35,7 @@ public class Warptastix extends JavaPlugin {
         WTXConfig.load();
         warpDb = new WarpDB();
         homeDb = new HomeDB();
+        Bukkit.getServer().getPluginCommand("warp").setExecutor(new WarpCommand());
     }
 
     @Override
