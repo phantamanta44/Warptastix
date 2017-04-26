@@ -2,7 +2,7 @@ name: Warptastix
 version: ${project.version}
 description: Continuation of Warptastic.
 website: http://phanta.xyz
-main: io.github.phantamanta44.warptastix.WarpMain
+main: io.github.phantamanta44.warptastix.Warptastixix
 softdepend: [Vault]
 commands:
   warp:

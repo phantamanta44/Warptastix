@@ -55,5 +55,10 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.fge</groupId>
+            <artifactId>throwing-lambdas</artifactId>
+            <version>0.5.0</version>
+        </dependency>
     </dependencies>
 </project>

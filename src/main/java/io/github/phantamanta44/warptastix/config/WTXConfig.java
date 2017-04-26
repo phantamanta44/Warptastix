@@ -1,6 +1,6 @@
 package io.github.phantamanta44.warptastix.config;
 
-import io.github.phantamanta44.warptastix.WarpMain;
+import io.github.phantamanta44.warptastix.Warptastix;
 import javafx.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -9,7 +9,7 @@ import org.bukkit.permissions.Permission;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WarpConfig {
+public class WTXConfig {
     
     public static final Warp WARP = new Warp();
     public static final Home HOME = new Home();
@@ -19,8 +19,8 @@ public class WarpConfig {
     public static final Economy ECON = new Economy();
 
     public static void load() {
-        WarpMain.INSTANCE.saveDefaultConfig();
-        ConfigurationSection config = WarpMain.INSTANCE.getConfig();
+        Warptastix.INSTANCE.saveDefaultConfig();
+        ConfigurationSection config = Warptastix.INSTANCE.getConfig();
         WARP.load(config.getConfigurationSection("Warps"));
         HOME.load(config.getConfigurationSection("Homes"));
         SPAWN.load(config.getConfigurationSection("Spawn"));
