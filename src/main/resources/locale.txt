@@ -1,15 +1,27 @@
 # General
 prefix=&8[Warptastix] &r
 noperms=&cYou don't have permission to do that!
+on=on
+off=off
 
 # Commands
 command.usage=&cUsage: %s
+command.unknownflag=&cUnknown flag &7%s&c!
+command.playeronly=&cOnly players can use this command!
 command.noplayer=&cNo such player &7%s&c!
 command.nowarp=&cNo such warp &7%s&c!
-command.unloaded=&cThis warp goes to a non-existent world!
 
-# Warps
-warp.warp=&6Warped to &7%s&6.
-warp.warp.other=&6Warped &7%s&6 to &7%s&6.
+command.warp.unloaded=&cThis warp goes to a non-existent world!
+command.warp.warp=&6Warped to &7%s&6.
+command.warp.warp.other=&6Warped &7%s&6 to &7%s&6.
+
+command.setwarp.already=&cThe warp &7%s&c already exists!
+command.setwarp.notowner=&cThis warp is owned by &7%s&c!
+command.setwarp.privtoggle=&6Toggled privacy &7%s&6for warp &7%s&6.
+command.setwarp.set=&6Set warp &7%s&6.
+command.setwarp.set.other=&6Set warp &7%s&6 for &7%s&6.
+command.setwarp.server.already=&cThe server warp &7%s&c already exists!
+command.setwarp.server.assimilate=&6Converted &7%s&6 to a server warp.
+command.setwarp.server.set=&6Set server warp &7%s&6.
 
 # TODO Finish

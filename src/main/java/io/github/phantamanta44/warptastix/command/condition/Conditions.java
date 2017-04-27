@@ -1,5 +1,6 @@
 package io.github.phantamanta44.warptastix.command.condition;
 
+import io.github.phantamanta44.warptastix.WTXLang;
 import io.github.phantamanta44.warptastix.command.WTXCommandException;
 import io.github.phantamanta44.warptastix.data.WTXAction;
 import io.github.phantamanta44.warptastix.data.Warp;
@@ -31,11 +32,11 @@ public class Conditions {
     }
 
     public static ICondition permission(String node) {
-        return predicate(sender -> sender.hasPermission(node), "No permission!");
+        return predicate(sender -> sender.hasPermission(node), WTXLang.prefix("noperms"));
     }
 
     public static ICondition playerOnly() {
-        return predicate(sender -> sender instanceof Player, "Only players can use this command!");
+        return predicate(sender -> sender instanceof Player, WTXLang.prefix("command.playeronly"));
     }
     
     public static ICondition predicate(Predicate<CommandSender> predicate, String message) {

@@ -75,4 +75,8 @@ public class WarpDB {
         return warps().filter(w -> w.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
+    public void add(Warp warp) {
+        warps.add(warp);
+    }
+
 }

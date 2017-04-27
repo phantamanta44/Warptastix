@@ -21,7 +21,7 @@ commands:
     usage: "/warpinfo <warp>"
     description: Displays details about a warp.
   setwarp:
-    usage: "/setwarp [-p] [-s] <warp> [owner]"
+    usage: "/setwarp [-p|-s] <warp> [owner]"
     description: Creates a new warp or toggles a flag on a warp.
   delwarp:
     usage: "/delwarp <warp>"
@@ -56,6 +56,8 @@ permissions:
     description: Allows you to set private warps.
   warptastix.setwarp.other:
     description: Allows you to set warps for other players.
+  warptastix.setwarp.server:
+    description: Allows you to set server warps.
   warptastix.limit.unlimited:
     description: Allows you to ignore warp limits.
   warptastix.list:

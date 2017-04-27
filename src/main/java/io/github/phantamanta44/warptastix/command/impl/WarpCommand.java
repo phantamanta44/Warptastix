@@ -43,6 +43,7 @@ public class WarpCommand extends WTXCommand {
         target.teleport(warp.getLocation().getLocation()); // TODO Warptastic magic
         // TODO Sound effects
         // TODO Warp effect
+        warp.incrementUses();
         if (!target.equals(sender))
             WTXLang.send(sender, "warp.warp.other", target.getName(), warp.getName());
         WTXLang.send(target, "warp.warp", warp.getName());
