@@ -12,6 +12,7 @@ command.noplayer=&cNo such player &7%s&c!
 command.nowarp=&cNo such warp &7%s&c!
 
 command.warp.unloaded=&cThis warp goes to a non-existent world!
+command.warp.private=&cYou don't have access to &7%s&c!
 command.warp.warp=&6Warped to &7%s&6.
 command.warp.warp.other=&6Warped &7%s&6 to &7%s&6.
 

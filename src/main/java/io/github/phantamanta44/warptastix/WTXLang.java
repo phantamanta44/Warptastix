@@ -1,3 +1,4 @@
+
 package io.github.phantamanta44.warptastix;
 
 import org.bukkit.ChatColor;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-public class WTXLang { // TODO Configurable locale
+public class WTXLang {
 
     private static final Map<String, String> l10nStore = new HashMap<>();
 

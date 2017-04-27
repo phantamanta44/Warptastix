@@ -86,6 +86,10 @@ public class Warp implements Comparable<Warp> {
         this.uses++;
     }
 
+    public boolean isServer() {
+        return owner == null;
+    }
+
     public JsonObject serialize() {
         JsonObject dto = new JsonObject();
         dto.addProperty("name", name);

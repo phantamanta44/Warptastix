@@ -12,4 +12,20 @@ public interface ICondition {
         // NO-OP
     }
 
+    default ICondition and(ICondition other) {
+        return new ICondition() {
+            @Override
+            public void verify(CommandSender sender) throws WTXCommandException {
+                this.verify(sender);
+                other.verify(sender);
+            }
+
+            @Override
+            public void execute(CommandSender sender) {
+                this.execute(sender);
+                other.execute(sender);
+            }
+        }
+    }
+
 }
