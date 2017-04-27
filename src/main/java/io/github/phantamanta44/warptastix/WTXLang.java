@@ -1,5 +1,6 @@
 package io.github.phantamanta44.warptastix;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.io.BufferedReader;
@@ -22,8 +23,11 @@ public class WTXLang { // TODO Configurable locale
                 line = line.trim();
                 if (!line.startsWith("#")) {
                     int split = line.indexOf('=');
-                    if (split > 0 && line.length() > split + 1)
-                        l10nStore.put(line.substring(0, split), line.substring(split + 1));
+                    if (split > 0 && line.length() > split + 1) {
+                        l10nStore.put(
+                                line.substring(0, split),
+                                ChatColor.translateAlternateColorCodes('&', line.substring(split + 1)));
+                    }
                 }
             }
         } catch (Exception e) {

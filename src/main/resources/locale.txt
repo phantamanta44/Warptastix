@@ -2,6 +2,12 @@
 prefix=&8[Warptastix] &r
 noperms=&cYou don't have permission to do that!
 
+# Commands
+command.usage=&cUsage: %s
+command.noplayer=&cNo such player &7%s&c!
+command.nowarp=&cNo such warp &7%s&c!
+command.unloaded=&cThis warp goes to a non-existent world!
+
 # Warps
 warp.warp=&6Warped to &7%s&6.
 warp.warp.other=&6Warped &7%s&6 to &7%s&6.

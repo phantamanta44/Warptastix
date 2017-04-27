@@ -1,5 +1,6 @@
 package io.github.phantamanta44.warptastix.command;
 
+import io.github.phantamanta44.warptastix.WTXLang;
 import io.github.phantamanta44.warptastix.command.condition.ConditionVerifier;
 import io.github.phantamanta44.warptastix.command.condition.ICondition;
 import org.bukkit.ChatColor;
@@ -18,7 +19,7 @@ public abstract class WTXCommand implements CommandExecutor {
             execute(sender, args);
         } catch (WTXCommandException e) {
             if (e.getMessage().equals("usage"))
-                sender.sendMessage(ChatColor.RED + "Usage: " + command.getUsage());
+                sender.sendMessage(WTXLang.prefix("command.usage", command.getUsage()));
             else
                 sender.sendMessage(ChatColor.RED + e.getMessage());
         }

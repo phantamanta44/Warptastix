@@ -21,7 +21,7 @@ commands:
     usage: "/warpinfo <warp>"
     description: Displays details about a warp.
   setwarp:
-    usage: "/setwarp [-p|-s] <warp> [owner]"
+    usage: "/setwarp [-p] [-s] <warp> [owner]"
     description: Creates a new warp or toggles a flag on a warp.
   delwarp:
     usage: "/delwarp <warp>"

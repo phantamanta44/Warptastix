@@ -1,7 +1,9 @@
-package io.github.phantamanta44.warptastix.command;
+package io.github.phantamanta44.warptastix.command.impl;
 
 import io.github.phantamanta44.warptastix.WTXLang;
 import io.github.phantamanta44.warptastix.Warptastix;
+import io.github.phantamanta44.warptastix.command.WTXCommand;
+import io.github.phantamanta44.warptastix.command.WTXCommandException;
 import io.github.phantamanta44.warptastix.command.condition.Conditions;
 import io.github.phantamanta44.warptastix.data.WTXAction;
 import io.github.phantamanta44.warptastix.data.Warp;
@@ -26,19 +28,20 @@ public class WarpCommand extends WTXCommand {
                 verify(Conditions.otherPlayer(WTXAction.WARP));
                 target = Bukkit.getPlayerExact(args[1]);
                 if (target == null)
-                    throw new WTXCommandException("No such player \"" + args[1] + "\"!");
+                    throw new WTXCommandException(WTXLang.prefix("command.noplayer", args[1]));
                 break;
             default:
                 throw new WTXCommandException();
         }
         Warp warp = Warptastix.wdb().byName(args[0]);
         if (warp == null)
-            throw new WTXCommandException("No such warp \"" + args[0] + "\"!");
+            throw new WTXCommandException(WTXLang.prefix("command.nowarp", args[0]));
         if (!warp.getLocation().isWorldLoaded())
-            throw new WTXCommandException("This warp goes to a non-existent world!");
+            throw new WTXCommandException(WTXLang.prefix("command.unloaded"));
         verify(Conditions.privateAccess(warp));
         flushConditions();
         target.teleport(warp.getLocation().getLocation()); // TODO Warptastic magic
+        // TODO Sound effects
         // TODO Warp effect
         if (!target.equals(sender))
             WTXLang.send(sender, "warp.warp.other", target.getName(), warp.getName());
