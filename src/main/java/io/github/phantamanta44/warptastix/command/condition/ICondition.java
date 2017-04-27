@@ -25,7 +25,7 @@ public interface ICondition {
                 this.execute(sender);
                 other.execute(sender);
             }
-        }
+        };
     }
 
 }
