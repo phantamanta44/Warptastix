@@ -28,16 +28,16 @@ public class WarpCommand extends WTXCommand {
                 verify(Conditions.otherPlayer(WTXAction.WARP));
                 target = Bukkit.getPlayerExact(args[1]);
                 if (target == null)
-                    throw new WTXCommandException(WTXLang.prefix("command.noplayer", args[1]));
+                    throw new WTXCommandException(WTXLang.localize("command.noplayer", args[1]));
                 break;
             default:
                 throw new WTXCommandException();
         }
         Warp warp = Warptastix.wdb().byName(args[0]);
         if (warp == null)
-            throw new WTXCommandException(WTXLang.prefix("command.nowarp", args[0]));
+            throw new WTXCommandException(WTXLang.localize("command.nowarp", args[0]));
         if (!warp.getLocation().isWorldLoaded())
-            throw new WTXCommandException(WTXLang.prefix("command.unloaded"));
+            throw new WTXCommandException(WTXLang.localize("command.unloaded"));
         verify(Conditions.privateAccess(warp));
         flushConditions();
         target.teleport(warp.getLocation().getLocation()); // TODO Warptastic magic

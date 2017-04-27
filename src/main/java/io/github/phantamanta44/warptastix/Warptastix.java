@@ -2,6 +2,8 @@ package io.github.phantamanta44.warptastix;
 
 import io.github.phantamanta44.warptastix.command.impl.SetWarpCommand;
 import io.github.phantamanta44.warptastix.command.impl.WarpCommand;
+import io.github.phantamanta44.warptastix.command.impl.WarpsCommand;
+import io.github.phantamanta44.warptastix.command.impl.WarptastixCommand;
 import io.github.phantamanta44.warptastix.config.WTXConfig;
 import io.github.phantamanta44.warptastix.data.HomeDB;
 import io.github.phantamanta44.warptastix.data.WarpDB;
@@ -26,7 +28,7 @@ public class Warptastix extends JavaPlugin {
     }
 
     public static OfflinePlayer getPlayer(String name) {
-        OfflinePlayer pl = Bukkit.getServer().getPlayer(name);
+        OfflinePlayer pl = Bukkit.getServer().getOfflinePlayer(name);
         return pl.isOnline() || pl.hasPlayedBefore() ? pl : null;
     }
 
@@ -36,7 +38,9 @@ public class Warptastix extends JavaPlugin {
         WTXConfig.load();
         warpDb = new WarpDB();
         homeDb = new HomeDB();
+        Bukkit.getServer().getPluginCommand("warptastix").setExecutor(new WarptastixCommand());
         Bukkit.getServer().getPluginCommand("warp").setExecutor(new WarpCommand());
+        Bukkit.getServer().getPluginCommand("warps").setExecutor(new WarpsCommand());
         Bukkit.getServer().getPluginCommand("setwarp").setExecutor(new SetWarpCommand());
     }
 
