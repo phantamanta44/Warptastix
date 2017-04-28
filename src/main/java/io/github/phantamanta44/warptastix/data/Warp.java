@@ -2,6 +2,7 @@ package io.github.phantamanta44.warptastix.data;
 
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.warptastix.util.LazyLoc;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -88,6 +89,10 @@ public class Warp implements Comparable<Warp> {
 
     public boolean isServer() {
         return owner == null;
+    }
+
+    public String getOwnerName() {
+        return isServer() ? "Server Warp" : Bukkit.getServer().getOfflinePlayer(owner).getName();
     }
 
     public JsonObject serialize() {

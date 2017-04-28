@@ -4,6 +4,10 @@ noperms=&cYou don't have permission to do that!
 on=on
 off=off
 
+money.cannotafford=&cCannot afford price of &7%s&c!
+money.spent=&6Spent &7%s&6.
+money.balance=&6Your balance is now &7%s&6.
+
 # Commands
 command.usage=&cUsage: %s
 command.unknownflag=&cUnknown flag &7%s&c!
@@ -26,6 +30,7 @@ command.warps.line=&7-----------------------
 
 command.setwarp.already=&cThe warp &7%s&c already exists!
 command.setwarp.notowner=&cThis warp is owned by &7%s&c!
+command.setwarp.limit=&cWarp limit reached!
 command.setwarp.privtoggle=&6Toggled privacy &7%s&6for warp &7%s&6.
 command.setwarp.set=&6Set warp &7%s&6.
 command.setwarp.set.other=&6Set warp &7%s&6 for &7%s&6.

@@ -11,7 +11,9 @@ import io.github.phantamanta44.warptastix.data.Warp;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class WarpsCommand extends WTXCommand {
@@ -64,7 +66,18 @@ public class WarpsCommand extends WTXCommand {
         Stream<Warp> warps = Warptastix.wdb().warps().filter(ownerFilter);
         if (opts.has("pop"))
             warps = warps.sorted(Warp.byPopularity());
-        // TODO Implement
+        List<Warp> warpList = warps.collect(Collectors.toList());
+        if (page < 0 || page >= (int)Math.ceil((float)warpList.size() / 8F))
+            throw new WTXCommandException(WTXLang.localize("command.warp.invalidpage", Integer.toString(page)));
+        String[] msg = new String[3 + Math.min(8, warpList.size() - page * 8)];
+        msg[0] = WTXLang.localize("command.warps.header");
+        for (int i = 0; i < warpList.size(); i++) {
+            msg[i + 1] = WTXLang.localize("command.warps.entry",
+                    warpList.get(i).getName(), warpList.get(i).getOwnerName());
+        }
+        msg[msg.length - 2] = WTXLang.localize("command.warps.footer");
+        msg[msg.length - 1] = WTXLang.localize("command.warps.line");
+        sender.sendMessage(msg);
     }
 
 }

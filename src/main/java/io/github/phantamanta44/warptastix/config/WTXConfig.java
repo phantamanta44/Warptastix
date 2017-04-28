@@ -1,13 +1,17 @@
 package io.github.phantamanta44.warptastix.config;
 
 import io.github.phantamanta44.warptastix.Warptastix;
+import io.github.phantamanta44.warptastix.data.WTXAction;
 import io.github.phantamanta44.warptastix.util.Pair;
+import io.github.phantamanta44.warptastix.util.VaultUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.permissions.Permission;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class WTXConfig {
     
@@ -32,7 +36,7 @@ public class WTXConfig {
     public static class WarpConfig {
 
         private int defaultLimit;
-        private Map<Permission, Integer> limitPerms = new HashMap<>();
+        private List<Pair<Permission, Integer>> limitPerms = new LinkedList<>();
         private int warmup;
         private int cooldown;
 
@@ -40,12 +44,12 @@ public class WTXConfig {
             if (config == null)
                 config = new DummyConfig();
             defaultLimit = config.getInt("DefaultLimit", 3);
-            limitPerms.keySet().forEach(Bukkit.getServer().getPluginManager()::removePermission);
+            limitPerms.forEach(e -> Bukkit.getServer().getPluginManager().removePermission(e.getA()));
             limitPerms.clear();
             config.getIntegerList("LimitNodes").stream()
-                    .sorted()
+                    .sorted(Comparator.reverseOrder())
                     .map(node -> Pair.of(new Permission("warptastix.limit." + Integer.toString(node)), node))
-                    .peek(p -> limitPerms.put(p.getA(), p.getB()))
+                    .peek(limitPerms::add)
                     .map(Pair::getA)
                     .forEach(Bukkit.getServer().getPluginManager()::addPermission);
             warmup = (int)Math.floor(config.getDouble("Warmup", 0D) * 20);
@@ -56,8 +60,12 @@ public class WTXConfig {
             return defaultLimit;
         }
 
-        public Map<Permission, Integer> getLimitPerms() {
-            return limitPerms;
+        public int getLimit(OfflinePlayer pl) {
+            return limitPerms.stream()
+                    .filter(perm -> VaultUtils.hasPerm(pl, perm.getA()))
+                    .map(Pair::getB)
+                    .findFirst()
+                    .orElse(defaultLimit);
         }
 
         public int getWarmup() {
@@ -67,7 +75,7 @@ public class WTXConfig {
         public int getCooldown() {
             return cooldown;
         }
-
+        
     }
 
     public static class HomeConfig {
@@ -153,6 +161,7 @@ public class WTXConfig {
         private boolean enable;
         private String warpTitle;
         private String spawnTitle;
+        private boolean charge;
 
         private void load(ConfigurationSection config) {
             if (config == null)
@@ -160,6 +169,7 @@ public class WTXConfig {
             enable = config.getBoolean("Enable", true);
             warpTitle = config.getString("WarpSignTitle", "[Warp]");
             spawnTitle = config.getString("SpawnSignTitle", "[Spawn]");
+            charge = config.getBoolean("ChargeOnSign", false);
         }
 
         public boolean isEnabled() {
@@ -173,53 +183,55 @@ public class WTXConfig {
         public String getSpawnTitle() {
             return spawnTitle;
         }
+        
+        public boolean shouldCharge() {
+            return charge;
+        }
 
     }
 
     public static class EconomyConfig {
 
         private boolean enable;
-        private int warpSetPrice;
-        private int warpPrice;
-        private int homeSetPrice;
-        private int homePrice;
-        private int spawnPrice;
+        private double warpSetPrice;
+        private double warpPrice;
+        private double homeSetPrice;
+        private double homePrice;
+        private double spawnPrice;
 
         private void load(ConfigurationSection config) {
             if (config == null)
                 config = new DummyConfig();
             enable = config.getBoolean("Enable", true);
-            warpSetPrice = config.getInt("Warp.SetPrice", 100);
-            warpPrice = config.getInt("Warp.WarpPrice", 0);
-            homeSetPrice = config.getInt("Home.SetPrice", 100);
-            homePrice = config.getInt("Home.WarpPrice", 0);
-            spawnPrice = config.getInt("Spawn.WarpPrice", 0);
+            warpSetPrice = config.getDouble("Warp.SetPrice", 100);
+            warpPrice = config.getDouble("Warp.WarpPrice", 0);
+            homeSetPrice = config.getDouble("Home.SetPrice", 100);
+            homePrice = config.getDouble("Home.WarpPrice", 0);
+            spawnPrice = config.getDouble("Spawn.WarpPrice", 0);
         }
 
         public boolean isEnabled() {
             return enable;
         }
 
-        public int getWarpSetPrice() {
-            return warpSetPrice;
+        public double getPrice(WTXAction action) {
+            switch (action) {
+                case WARP:
+                    return warpPrice;
+                case WARP_SET_PUBLIC:
+                case WARP_SET_PRIVATE:
+                    return warpSetPrice;
+                case HOME:
+                    return homePrice;
+                case HOME_SET:
+                    return homeSetPrice;
+                case SPAWN:
+                    return spawnPrice;
+                default:
+                    return 0;
+            }
         }
-
-        public int getWarpPrice() {
-            return warpPrice;
-        }
-
-        public int getHomeSetPrice() {
-            return homeSetPrice;
-        }
-
-        public int getHomePrice() {
-            return homePrice;
-        }
-
-        public int getSpawnPrice() {
-            return spawnPrice;
-        }
-
+        
     }
 
 }

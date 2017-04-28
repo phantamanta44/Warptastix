@@ -77,7 +77,8 @@ public class SetWarpCommand extends WTXCommand {
                 } else {
                     throw new WTXCommandException(WTXLang.localize("command.setwarp.already", warp.getName()));
                 }
-            } else { // TODO Check warp limits
+            } else {
+                verify(Conditions.warpLimit(owner));
                 flushConditions();
                 Warptastix.wdb().add(warp = new Warp(args[0], (Player)sender, opts.has("p")));
                 Warptastix.wdb().save();

@@ -1,9 +1,13 @@
 package io.github.phantamanta44.warptastix.command.condition;
 
 import io.github.phantamanta44.warptastix.WTXLang;
+import io.github.phantamanta44.warptastix.Warptastix;
 import io.github.phantamanta44.warptastix.command.WTXCommandException;
+import io.github.phantamanta44.warptastix.config.WTXConfig;
 import io.github.phantamanta44.warptastix.data.WTXAction;
 import io.github.phantamanta44.warptastix.data.Warp;
+import io.github.phantamanta44.warptastix.util.VaultUtils;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -28,7 +32,27 @@ public class Conditions {
     };
 
     public static ICondition price(WTXAction action) {
-        return sender -> {}; // TODO Implement
+        return new ICondition() {
+            @Override
+            public void verify(CommandSender sender) throws WTXCommandException {
+                if (WTXConfig.ECON.isEnabled()
+                        && !VaultUtils.hasMoney((OfflinePlayer)sender, WTXConfig.ECON.getPrice(action))) {
+                    throw new WTXCommandException(WTXLang.localize(
+                            "money.cannotafford", VaultUtils.formatMoney(WTXConfig.ECON.getPrice(action))));
+                }
+            }
+
+            @Override
+            public void execute(CommandSender sender) {
+                if (WTXConfig.ECON.isEnabled()) {
+                    VaultUtils.offsetMoney((OfflinePlayer)sender, -WTXConfig.ECON.getPrice(action));
+                    WTXLang.send(sender, "money.spent",
+                            VaultUtils.formatMoney(WTXConfig.ECON.getPrice(action)));
+                    WTXLang.send(sender, "money.balance",
+                            VaultUtils.formatMoney(VaultUtils.balanceOf((OfflinePlayer)sender)));
+                }
+            }
+        };
     }
 
     public static ICondition self(WTXAction action) {
@@ -70,12 +94,22 @@ public class Conditions {
         }
     }
 
+    public static ICondition warpLimit(OfflinePlayer owner) {
+        return sender -> {
+            if (!(sender.hasPermission("warptastix.limit.unlimited")
+                    || VaultUtils.hasPerm(owner, "warptastix.limit.unlimited"))) {
+                if (Warptastix.wdb().byOwner(owner).count() >= WTXConfig.WARP.getLimit(owner))
+                    throw new WTXCommandException(WTXLang.localize("command.setwarp.limit"));
+            }
+        };
+    }
+
     public static ICondition permission(String node) {
-        return predicate(sender -> sender.hasPermission(node), WTXLang.prefix("noperms"));
+        return predicate(sender -> sender.hasPermission(node), WTXLang.localize("noperms"));
     }
 
     public static ICondition playerOnly() {
-        return predicate(sender -> sender instanceof Player, WTXLang.prefix("command.playeronly"));
+        return predicate(sender -> sender instanceof Player, WTXLang.localize("command.playeronly"));
     }
     
     public static ICondition predicate(Predicate<CommandSender> predicate, String message) {

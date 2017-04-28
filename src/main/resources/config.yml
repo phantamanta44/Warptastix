@@ -27,6 +27,7 @@ Signs:
   Enable: true # Whether to enable warp signs or not
   WarpSignTitle: "[Warp]" # The title line for warp signs
   SpawnSignTitle: "[Spawn]" # The title line for spawn teleportation signs
+  ChargeOnSign: false # Whether to charge players for using signs or not
 
 # Economy
 Economy:
