@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.material.MaterialData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -46,6 +48,9 @@ public class EffectHandler implements Listener {
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
         player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, player.getLocation(), 12);
         player.getWorld().spawnParticle(Particle.BLOCK_CRACK, player.getLocation(), 18, TP_EFF_MAT);
+        player.removePotionEffect(PotionEffectType.BLINDNESS);
+        player.addPotionEffect(
+                new PotionEffect(PotionEffectType.BLINDNESS, WTXConfig.EFFECT.getDuration() + 20, 9, true, false));
         player.teleport(dest);
         player.setGameMode(GameMode.SPECTATOR);
     }

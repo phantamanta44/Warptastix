@@ -134,7 +134,7 @@ public class WTXConfig {
             warpText = config.getString("WarpSignText", "[Warp]");
             warpTitle = ChatColor.translateAlternateColorCodes('&', config.getString("WarpSignTitle", "&a[Warp]"));
             spawnText = config.getString("SpawnSignText", "[Spawn]");
-            warpTitle = ChatColor.translateAlternateColorCodes('&', config.getString("SpawnSignTitle", "&a[Spawn]"));
+            spawnTitle = ChatColor.translateAlternateColorCodes('&', config.getString("SpawnSignTitle", "&a[Spawn]"));
             charge = config.getBoolean("ChargeOnSign", false);
         }
 

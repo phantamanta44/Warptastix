@@ -2,7 +2,12 @@ package io.github.phantamanta44.warptastix.event;
 
 import io.github.phantamanta44.warptastix.WTXLang;
 import io.github.phantamanta44.warptastix.Warptastix;
+import io.github.phantamanta44.warptastix.command.WTXCommandException;
+import io.github.phantamanta44.warptastix.command.condition.ConditionVerifier;
+import io.github.phantamanta44.warptastix.command.condition.Conditions;
 import io.github.phantamanta44.warptastix.config.WTXConfig;
+import io.github.phantamanta44.warptastix.data.WTXAction;
+import io.github.phantamanta44.warptastix.data.Warp;
 import io.github.phantamanta44.warptastix.util.LazyLoc;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -48,8 +53,10 @@ public class WTXListener implements Listener {
                     WTXLang.send(event.getPlayer(), "noperms");
                     event.setCancelled(true);
                 }
-            } else if (event.getLine(1).equals(WTXConfig.SIGN.getWarpText())) {
-                if (!event.getPlayer().hasPermission("warptastix.makesign")) {
+            } else if (event.getLine(1).equals(WTXConfig.SIGN.getSpawnText())) {
+                if (event.getPlayer().hasPermission("warptastix.makesign")) {
+                    event.setLine(1, WTXConfig.SIGN.getSpawnTitle());
+                } else {
                     WTXLang.send(event.getPlayer(), "noperms");
                     event.setCancelled(true);
                 }
@@ -65,9 +72,39 @@ public class WTXListener implements Listener {
                             || event.getClickedBlock().getType() == Material.WALL_SIGN)) {
                 Sign sign = (Sign)event.getClickedBlock().getState();
                 if (sign.getLine(1).equals(WTXConfig.SIGN.getSpawnTitle())) {
-
+                    try {
+                        ConditionVerifier verifier = new ConditionVerifier();
+                        verifier.setSender(event.getPlayer());
+                        if (WTXConfig.SIGN.shouldCharge())
+                            verifier.check(Conditions.price(WTXAction.SPAWN));
+                        verifier.flush();
+                        Warptastix.teleport(event.getPlayer(), event.getPlayer().getWorld().getSpawnLocation());
+                        WTXLang.send(event.getPlayer(), "command.spawn.spawn");
+                    } catch (WTXCommandException e) {
+                        event.getPlayer().sendMessage(WTXLang.localize("prefix") + e.getMessage());
+                    }
                 } else if (sign.getLine(1).equals(WTXConfig.SIGN.getWarpTitle())) {
-
+                    Warp warp = Warptastix.wdb().byName(sign.getLine(2));
+                    if (warp == null) {
+                        WTXLang.send(event.getPlayer(), "command.nowarp", sign.getLine(2));
+                    } else if (!warp.getLocation().isWorldLoaded()) {
+                        WTXLang.send(event.getPlayer(), "command.warp.unloaded");
+                    } else {
+                        try {
+                            ConditionVerifier verifier = new ConditionVerifier();
+                            verifier.setSender(event.getPlayer());
+                            if (warp.isPriv())
+                                verifier.check(Conditions.privateAccess(warp));
+                            if (WTXConfig.SIGN.shouldCharge())
+                                verifier.check(Conditions.price(WTXAction.WARP));
+                            verifier.flush();
+                            Warptastix.teleport(event.getPlayer(), warp.getLocation().getLocation());
+                            warp.incrementUses();
+                            WTXLang.send(event.getPlayer(), "command.warp.warp", warp.getName());
+                        } catch (WTXCommandException e) {
+                            event.getPlayer().sendMessage(WTXLang.localize("prefix") + e.getMessage());
+                        }
+                    }
                 }
             }
         }
