@@ -98,5 +98,10 @@ public class LazyLoc {
         loc.pitch = dto.get("pitch").getAsFloat();
         return loc;
     }
-    
+
+    @Override
+    public String toString() {
+        return String.format("%s (%.0f, %.0f, %.0f)", worldName, x, y, z);
+    }
+
 }

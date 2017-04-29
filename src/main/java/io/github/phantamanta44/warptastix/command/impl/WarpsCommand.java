@@ -20,8 +20,6 @@ public class WarpsCommand extends WTXCommand {
 
     @Override
     protected void execute(CommandSender sender, String[] args) throws WTXCommandException {
-        if (!sender.hasPermission("warptastix.list"))
-            throw new WTXCommandException(WTXLang.localize("noperms"));
         OptParser opts = new OptParser(args).with("pop").with("s").parse();
         args = opts.getArgs();
         int page = 0;
@@ -30,14 +28,14 @@ public class WarpsCommand extends WTXCommand {
             case 0:
                 verify(Conditions.playerOnly());
                 verify(Conditions.self(WTXAction.WARP_LIST));
-                ownerFilter = warp -> true;
+                ownerFilter = warp -> !warp.isPriv();
                 break;
             case 1:
                 try {
                     page = Integer.parseInt(args[0]) - 1;
                     verify(Conditions.playerOnly());
                     verify(Conditions.self(WTXAction.WARP_LIST));
-                    ownerFilter = warp -> true;
+                    ownerFilter = warp -> !warp.isPriv();
                 } catch (NumberFormatException e) {
                     verify(Conditions.otherPlayer(WTXAction.WARP_LIST));
                     OfflinePlayer ownerPl = Warptastix.getPlayer(args[0]);
@@ -55,7 +53,7 @@ public class WarpsCommand extends WTXCommand {
                 try {
                     page = Integer.parseInt(args[1]) - 1;
                 } catch (NumberFormatException e) {
-                    throw new WTXCommandException(WTXLang.localize("command.warp.invalidpage", args[1]));
+                    throw new WTXCommandException(WTXLang.localize("command.warps.invalidpage", args[1]));
                 }
                 break;
             default:
@@ -67,15 +65,17 @@ public class WarpsCommand extends WTXCommand {
         if (opts.has("pop"))
             warps = warps.sorted(Warp.byPopularity());
         List<Warp> warpList = warps.collect(Collectors.toList());
-        if (page < 0 || page >= (int)Math.ceil((float)warpList.size() / 8F))
-            throw new WTXCommandException(WTXLang.localize("command.warp.invalidpage", Integer.toString(page)));
-        String[] msg = new String[3 + Math.min(8, warpList.size() - page * 8)];
+        int pages = (int)Math.ceil((float)warpList.size() / 8F);
+        if (page < 0 || page >= pages)
+            throw new WTXCommandException(WTXLang.localize("command.warps.invalidpage", Integer.toString(page + 1)));
+        int pageSize = Math.min(8, warpList.size() - page * 8);
+        String[] msg = new String[3 + pageSize];
         msg[0] = WTXLang.localize("command.warps.header");
-        for (int i = 0; i < warpList.size(); i++) {
-            msg[i + 1] = WTXLang.localize("command.warps.entry",
+        for (int i = 8 * page; i < 8 * page + pageSize; i++) {
+            msg[i - 8 * page + 1] = WTXLang.localize("command.warps.entry",
                     warpList.get(i).getName(), warpList.get(i).getOwnerName());
         }
-        msg[msg.length - 2] = WTXLang.localize("command.warps.footer");
+        msg[msg.length - 2] = WTXLang.localize("command.warps.footer", page + 1, pages);
         msg[msg.length - 1] = WTXLang.localize("command.warps.line");
         sender.sendMessage(msg);
     }

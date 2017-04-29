@@ -14,7 +14,7 @@ public class Warp implements Comparable<Warp> {
 
     private String name;
     private LazyLoc loc;
-    private long timeCreate, timeModify;
+    private long timeCreate;
     private UUID owner;
     private boolean priv;
     private int uses;
@@ -22,7 +22,7 @@ public class Warp implements Comparable<Warp> {
     public Warp(String name, LazyLoc loc, UUID owner, boolean priv) {
         this.name = name;
         this.loc = loc;
-        this.timeCreate = this.timeModify = System.currentTimeMillis();
+        this.timeCreate = System.currentTimeMillis();
         this.owner = owner;
         this.priv = priv;
     }
@@ -53,14 +53,6 @@ public class Warp implements Comparable<Warp> {
 
     public long getCreateTime() {
         return timeCreate;
-    }
-
-    public long getModifyTime() {
-        return timeModify;
-    }
-
-    public void updateModifyTime() {
-        this.timeModify = System.currentTimeMillis();
     }
 
     public UUID getOwner() {
@@ -100,8 +92,8 @@ public class Warp implements Comparable<Warp> {
         dto.addProperty("name", name);
         dto.add("location", loc.serialize());
         dto.addProperty("timeCreate", timeCreate);
-        dto.addProperty("timeModify", timeModify);
-        dto.addProperty("owner", owner.toString());
+        if (owner != null)
+            dto.addProperty("owner", owner.toString());
         dto.addProperty("private", priv);
         dto.addProperty("uses", uses);
         return dto;
@@ -112,8 +104,7 @@ public class Warp implements Comparable<Warp> {
         warp.name = dto.get("name").getAsString();
         warp.loc = LazyLoc.deserialize(dto.get("location").getAsJsonObject());
         warp.timeCreate = dto.get("timeCreate").getAsLong();
-        warp.timeModify = dto.get("timeModify").getAsLong();
-        warp.owner = UUID.fromString(dto.get("owner").getAsString());
+        warp.owner = dto.has("owner") ? UUID.fromString(dto.get("owner").getAsString()) : null;
         warp.priv = dto.get("private").getAsBoolean();
         warp.uses = dto.get("uses").getAsInt();
         return warp;

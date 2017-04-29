@@ -2,7 +2,7 @@ name: Warptastix
 version: ${project.version}
 description: Continuation of Warptastic.
 website: http://phanta.xyz
-main: io.github.phantamanta44.warptastix.Warptastixix
+main: io.github.phantamanta44.warptastix.Warptastix
 softdepend: [Vault]
 commands:
   warptastix:
@@ -33,7 +33,7 @@ commands:
     usage: "/sethome [owner]"
     description: Sets your home location.
   delhome:
-    usage: "/delhome"
+    usage: "/delhome [owner]"
     description: Deletes your home location.
   home:
     usage: "/home [owner] [player]"
@@ -61,24 +61,26 @@ permissions:
   warptastix.limit.unlimited:
     description: Allows you to ignore warp limits.
   warptastix.list:
-    descritpion: Allows you to list warps.
+    description: Allows you to list warps.
   warptastix.list.other:
-    descritpion: Allows you to list another player's warps.
+    description: Allows you to list another player's warps.
+  warptastix.clear:
+    description: Allows you to clear your warps.
+  warptastix.clear.other:
+    description: Allows you to clear another player's warps.
   warptastix.makesign:
     description: Allows you to make warp signs.
   warptastix.info:
     description: Allows you to view warp info.
   warptastix.home:
     description: Allows you to set and use homes.
-  warptastix.home.other:
+  warptastix.home.intrude:
     description: Allows you to set and use another player's home.
+  warptastix.home.other:
+    description: Allows you to teleport other players to homes.
   warptastix.spawn:
     description: Allows you to teleport to spawn.
   warptastix.spawn.other:
     description: Allows you to teleport other players to spawn.
   warptastix.nocost:
     description: Allows you to bypass all prices.
-  warptastix.nowarmup:
-    description: Allows you to bypass all warmup times.
-  warptastix.nocooldown:
-    description: Allows you to bypass all cooldown times.

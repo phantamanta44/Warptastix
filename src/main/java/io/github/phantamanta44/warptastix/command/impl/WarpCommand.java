@@ -20,7 +20,6 @@ public class WarpCommand extends WTXCommand {
             case 1:
                 verify(Conditions.playerOnly());
                 verify(Conditions.self(WTXAction.WARP));
-                verify(Conditions.cooldown(WTXAction.WARP));
                 verify(Conditions.price(WTXAction.WARP));
                 target = (Player)sender;
                 break;
@@ -37,16 +36,15 @@ public class WarpCommand extends WTXCommand {
         if (warp == null)
             throw new WTXCommandException(WTXLang.localize("command.nowarp", args[0]));
         if (!warp.getLocation().isWorldLoaded())
-            throw new WTXCommandException(WTXLang.localize("command.unloaded"));
-        verify(Conditions.privateAccess(warp));
+            throw new WTXCommandException(WTXLang.localize("command.warp.unloaded"));
+        if (warp.isPriv())
+            verify(Conditions.privateAccess(warp));
         flushConditions();
-        target.teleport(warp.getLocation().getLocation()); // TODO Warptastic magic
-        // TODO Sound effects
-        // TODO Warp effect
+        Warptastix.teleport(target, warp.getLocation().getLocation());
         warp.incrementUses();
         if (!target.equals(sender))
-            WTXLang.send(sender, "warp.warp.other", target.getName(), warp.getName());
-        WTXLang.send(target, "warp.warp", warp.getName());
+            WTXLang.send(sender, "command.warp.warp.other", target.getName(), warp.getName());
+        WTXLang.send(target, "command.warp.warp", warp.getName());
     }
 
 }

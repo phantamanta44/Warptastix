@@ -13,16 +13,17 @@ public interface ICondition {
     }
 
     default ICondition and(ICondition other) {
+        final ICondition original = this;
         return new ICondition() {
             @Override
             public void verify(CommandSender sender) throws WTXCommandException {
-                this.verify(sender);
+                original.verify(sender);
                 other.verify(sender);
             }
 
             @Override
             public void execute(CommandSender sender) {
-                this.execute(sender);
+                original.execute(sender);
                 other.execute(sender);
             }
         };

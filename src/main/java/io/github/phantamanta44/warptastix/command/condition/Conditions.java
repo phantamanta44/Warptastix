@@ -24,18 +24,29 @@ public class Conditions {
         return warp.isServer() ? noop() : predicate(sender ->
                         (sender instanceof Entity && ((Entity)sender).getUniqueId().equals(warp.getOwner()))
                                 || sender.hasPermission("warptastix.warp.bypassprivate"),
-                WTXLang.prefix("command.warp.private", warp.getName()));
+                WTXLang.localize("command.warp.private", warp.getName()));
     }
 
-    public static ICondition cooldown(WTXAction action) {
-        return sender -> {}; // TODO Implement
-    };
+    public static ICondition deletion(Warp warp) {
+        return sender -> {
+            if (warp.isServer()) {
+                if (!sender.hasPermission("warptastix.setwarp.server"))
+                    throw new WTXCommandException(WTXLang.localize("command.delwarp.noaccess", warp.getName()));
+            } else {
+                if (!((sender instanceof Entity && ((Entity)sender).getUniqueId().equals(warp.getOwner()))
+                                || sender.hasPermission("warptastix.setwarp.other"))) {
+                    throw new WTXCommandException(WTXLang.localize("command.delwarp.noaccess",warp.getName()));
+                }
+            }
+        };
+    }
 
     public static ICondition price(WTXAction action) {
         return new ICondition() {
             @Override
             public void verify(CommandSender sender) throws WTXCommandException {
                 if (WTXConfig.ECON.isEnabled()
+                        && !sender.hasPermission("warptastix.nocost")
                         && !VaultUtils.hasMoney((OfflinePlayer)sender, WTXConfig.ECON.getPrice(action))) {
                     throw new WTXCommandException(WTXLang.localize(
                             "money.cannotafford", VaultUtils.formatMoney(WTXConfig.ECON.getPrice(action))));
@@ -44,10 +55,11 @@ public class Conditions {
 
             @Override
             public void execute(CommandSender sender) {
-                if (WTXConfig.ECON.isEnabled()) {
-                    VaultUtils.offsetMoney((OfflinePlayer)sender, -WTXConfig.ECON.getPrice(action));
+                double price = WTXConfig.ECON.getPrice(action);
+                if (price > 0 && WTXConfig.ECON.isEnabled() && !sender.hasPermission("warptastix.nocost")) {
+                    VaultUtils.offsetMoney((OfflinePlayer)sender, price);
                     WTXLang.send(sender, "money.spent",
-                            VaultUtils.formatMoney(WTXConfig.ECON.getPrice(action)));
+                            VaultUtils.formatMoney(price));
                     WTXLang.send(sender, "money.balance",
                             VaultUtils.formatMoney(VaultUtils.balanceOf((OfflinePlayer)sender)));
                 }
@@ -65,6 +77,8 @@ public class Conditions {
                 return permission("warptastix.setwarp.private");
             case WARP_LIST:
                 return permission("warptastix.list");
+            case WARP_CLEAR:
+                return permission("warptastix.clear");
             case HOME:
             case HOME_SET:
                 return permission("warptastix.home");
@@ -84,9 +98,12 @@ public class Conditions {
                 return permission("warptastix.setwarp.other").and(self(action));
             case WARP_LIST:
                 return permission("warptastix.list.other");
+            case WARP_CLEAR:
+                return permission("warptastix.clear.other");
             case HOME:
-            case HOME_SET:
                 return permission("warptastix.home.other");
+            case HOME_SET:
+                return permission("warptastix.home.intrude");
             case SPAWN:
                 return permission("warptastix.spawn.other");
             default:

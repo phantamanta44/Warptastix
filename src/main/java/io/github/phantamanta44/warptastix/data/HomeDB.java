@@ -3,6 +3,7 @@ package io.github.phantamanta44.warptastix.data;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.warptastix.Warptastix;
 import io.github.phantamanta44.warptastix.util.LazyLoc;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 
 import java.io.*;
@@ -51,6 +52,14 @@ public class HomeDB {
 
     public LazyLoc forPlayer(OfflinePlayer pl) {
         return forPlayer(pl.getUniqueId());
+    }
+
+    public void set(OfflinePlayer owner, Location location) {
+        homes.put(owner.getUniqueId(), new LazyLoc(location));
+    }
+
+    public void remove(OfflinePlayer owner) {
+        homes.remove(owner.getUniqueId());
     }
 
 }

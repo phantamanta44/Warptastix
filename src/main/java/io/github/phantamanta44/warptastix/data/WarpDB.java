@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -77,6 +78,14 @@ public class WarpDB {
 
     public void add(Warp warp) {
         warps.add(warp);
+    }
+
+    public void remove(Warp warp) {
+        warps.remove(warp);
+    }
+
+    public void removeIf(Predicate<Warp> condition) {
+        warps.removeIf(condition);
     }
 
 }

@@ -30,7 +30,7 @@ public class OptParser {
             if (source[i].startsWith("-")) {
                 MutableBoolean flag = flags.get(source[i].substring(1));
                 if (flag == null)
-                    throw new WTXCommandException(WTXLang.prefix("command.unknownflag", source[i]));
+                    throw new WTXCommandException(WTXLang.localize("command.unknownflag", source[i]));
                 flag.setValue(true);
                 i++;
             } else {

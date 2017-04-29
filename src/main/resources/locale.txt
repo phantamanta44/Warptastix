@@ -3,6 +3,7 @@ prefix=&8[Warptastix] &r
 noperms=&cYou don't have permission to do that!
 on=on
 off=off
+dateformat=MMM dd, yyyy - HH:mm:ss
 
 money.cannotafford=&cCannot afford price of &7%s&c!
 money.spent=&6Spent &7%s&6.
@@ -23,10 +24,17 @@ command.warp.warp=&6Warped to &7%s&6.
 command.warp.warp.other=&6Warped &7%s&6 to &7%s&6.
 
 command.warps.invalidpage=&cInvalid page number &7%s&c!
-command.warps.header=&7----- &1[WARP LIST] &7-----
-command.warps.entry=&f%s &8| &7%s
+command.warps.header=&7----- &6&l[&aWARP LIST&6&l]&7 -----
+command.warps.entry=&7- &b%s &8| &f%s
 command.warps.footer=&8(Page %d of %d)
-command.warps.line=&7-----------------------
+command.warps.line=&7---------------------
+
+command.warpinfo.name=&6&l[ &a%s&6&l ]
+command.warpinfo.owner=&bOwned by: &f%s
+command.warpinfo.server=The Server
+command.warpinfo.private=&bPrivacy: &f%s
+command.warpinfo.createtime=&bCreated: &f%s
+command.warpinfo.uses=&bUsed: &f%d time(s)
 
 command.setwarp.already=&cThe warp &7%s&c already exists!
 command.setwarp.notowner=&cThis warp is owned by &7%s&c!
@@ -38,4 +46,28 @@ command.setwarp.server.already=&cThe server warp &7%s&c already exists!
 command.setwarp.server.assimilate=&6Converted &7%s&6 to a server warp.
 command.setwarp.server.set=&6Set server warp &7%s&6.
 
-# TODO Finish
+command.delwarp.delete=&6Deleted warp &7%s&6.
+command.delwarp.noaccess=&cYou cannot delete &7%s&c!
+
+command.clearwarps.clear=&6Cleared &7%s&6's warps.
+
+command.sethome.exists=&cYou already have a home set! Use &7/delhome&c to clear it.
+command.sethome.exists.other=&cA home already exists for &7%s&c!
+command.sethome.set=&6Home set.
+command.sethome.set.other=&6Set home for &7%s&6.
+
+command.delhome.nohome=&cYou don't have a home set yet! Use &7/sethome&c to set one.
+command.delhome.nohome.other=&cPlayer &7%s&c has no set home!
+command.delhome.delete=&6Home deleted.
+command.delhome.delete.other=&6Deleted home for &7%s&6.
+
+command.home.unloaded=&cThis home is in a non-existent world!
+command.home.home=&6Warped home.
+command.home.home.intrude=&6Warped to &7%s&6's home.
+command.home.home.other=&6Warped &7%s&6 to &7%s&6's home.
+
+command.spawn.spawn=&6Warped to spawn.
+command.spawn.other=&6Warped &7%s&6 to spawn.
+
+# Signs
+sign.nowarp=&cYou need to specify a warp name on the third line!

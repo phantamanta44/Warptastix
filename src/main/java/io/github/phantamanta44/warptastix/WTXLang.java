@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -47,6 +49,10 @@ public class WTXLang {
 
     public static void send(CommandSender target, String key, Object... args) {
         target.sendMessage(prefix(key, args));
+    }
+
+    public static String date(long time) {
+        return new SimpleDateFormat(localize("dateformat")).format(new Date(time));
     }
 
 }

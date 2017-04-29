@@ -23,8 +23,7 @@ public class SetWarpCommand extends WTXCommand {
         if (opts.has("p") && !sender.hasPermission("warptastix.setwarp.private"))
             throw new WTXCommandException(WTXLang.localize("noperms"));
         if (opts.has("s")) {
-            if (!sender.hasPermission("warp.setwarp.server"))
-                throw new WTXCommandException(WTXLang.localize("noperms"));
+            verify(Conditions.permission("warp.setwarp.server"));
             if (args.length != 1)
                 throw new WTXCommandException();
             Warp warp = Warptastix.wdb().byName(args[0]);
@@ -38,7 +37,7 @@ public class SetWarpCommand extends WTXCommand {
                     WTXLang.send(sender, "command.setwarp.server.assimilate", warp.getName());
                 }
             } else {
-                Warptastix.wdb().add(warp = new Warp(args[0], (Player)sender, false));
+                Warptastix.wdb().add(warp = new Warp(args[0], ((Player)sender).getLocation(), null, false));
                 Warptastix.wdb().save();
                 WTXLang.send(sender, "command.setwarp.server.set", warp.getName());
             }

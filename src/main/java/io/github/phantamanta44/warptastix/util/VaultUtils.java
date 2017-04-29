@@ -37,7 +37,7 @@ public class VaultUtils {
             if (amount > 0)
                 INSTANCE.econ.depositPlayer(pl, amount);
             else
-                INSTANCE.econ.withdrawPlayer(pl, amount);
+                INSTANCE.econ.withdrawPlayer(pl, -amount);
         }
     }
 
