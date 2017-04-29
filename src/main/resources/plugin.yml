@@ -3,7 +3,7 @@ version: ${project.version}
 description: Continuation of Warptastic.
 website: http://phanta.xyz
 main: io.github.phantamanta44.warptastix.Warptastix
-softdepend: [Vault]
+depend: [Vault]
 commands:
   warptastix:
     usage: "/warptastix [-r]"
