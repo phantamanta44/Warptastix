@@ -5,6 +5,7 @@ import io.github.phantamanta44.warptastix.Warptastix;
 import io.github.phantamanta44.warptastix.command.WTXCommand;
 import io.github.phantamanta44.warptastix.command.WTXCommandException;
 import io.github.phantamanta44.warptastix.command.condition.Conditions;
+import io.github.phantamanta44.warptastix.config.WTXConfig;
 import io.github.phantamanta44.warptastix.data.WTXAction;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -32,7 +33,7 @@ public class SpawnCommand extends WTXCommand {
                 throw new WTXCommandException();
         }
         flushConditions();
-        Warptastix.teleport(target, target.getWorld().getSpawnLocation());
+        Warptastix.teleport(target, WTXConfig.SPAWN.getSpawn(target.getWorld()));
         if (target.equals(sender))
             WTXLang.send(sender, "command.spawn.spawn");
         else

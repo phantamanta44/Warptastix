@@ -10,6 +10,7 @@ Homes:
 # Spawn management
 Spawn:
   SpawnAtSpawn: true # Whether to spawn players at the world spawn or not
+  ServerSpawn: true # Whether to use the server spawn or the world spawn
 
 # Teleportation effect
 TeleportEffect:

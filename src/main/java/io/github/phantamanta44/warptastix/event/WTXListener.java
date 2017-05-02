@@ -31,13 +31,13 @@ public class WTXListener implements Listener {
             }
         }
         if (WTXConfig.SPAWN.shouldSpawnAtSpawn())
-            event.setRespawnLocation(event.getPlayer().getWorld().getSpawnLocation());
+            event.setRespawnLocation(WTXConfig.SPAWN.getSpawn(event.getPlayer().getWorld()));
     }
 
     @EventHandler
     public void onSpawn(PlayerSpawnLocationEvent event) {
         if (WTXConfig.SPAWN.shouldSpawnAtSpawn() && !event.getPlayer().hasPlayedBefore())
-            event.setSpawnLocation(event.getSpawnLocation().getWorld().getSpawnLocation());
+            event.setSpawnLocation(WTXConfig.SPAWN.getSpawn(event.getSpawnLocation().getWorld()));
     }
 
     @EventHandler
@@ -78,7 +78,7 @@ public class WTXListener implements Listener {
                         if (WTXConfig.SIGN.shouldCharge())
                             verifier.check(Conditions.price(WTXAction.SPAWN));
                         verifier.flush();
-                        Warptastix.teleport(event.getPlayer(), event.getPlayer().getWorld().getSpawnLocation());
+                        Warptastix.teleport(event.getPlayer(), WTXConfig.SPAWN.getSpawn(event.getPlayer().getWorld()));
                         WTXLang.send(event.getPlayer(), "command.spawn.spawn");
                     } catch (WTXCommandException e) {
                         event.getPlayer().sendMessage(WTXLang.localize("prefix") + e.getMessage());

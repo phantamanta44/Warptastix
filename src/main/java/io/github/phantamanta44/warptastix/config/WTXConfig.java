@@ -4,9 +4,7 @@ import io.github.phantamanta44.warptastix.Warptastix;
 import io.github.phantamanta44.warptastix.data.WTXAction;
 import io.github.phantamanta44.warptastix.util.Pair;
 import io.github.phantamanta44.warptastix.util.VaultUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.permissions.Permission;
@@ -85,15 +83,21 @@ public class WTXConfig {
     public static class SpawnConfig {
 
         private boolean spawnAtSpawn;
+        private boolean serverSpawn;
 
         private void load(ConfigurationSection config) {
             if (config == null)
                 config = DUMMY_CONF;
             spawnAtSpawn = config.getBoolean("SpawnAtSpawn", true);
+            serverSpawn = config.getBoolean("ServerSpawn", true);
         }
 
         public boolean shouldSpawnAtSpawn() {
             return spawnAtSpawn;
+        }
+
+        public Location getSpawn(World world) {
+            return serverSpawn ? Bukkit.getServer().getWorlds().get(0).getSpawnLocation() : world.getSpawnLocation();
         }
 
     }
