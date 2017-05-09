@@ -96,6 +96,10 @@ public class WTXConfig {
             return spawnAtSpawn;
         }
 
+        public Location getSpawnCentered(World world) {
+            return getSpawn(world).add(0.5D, 0.5D, 0.5D);
+        }
+
         public Location getSpawn(World world) {
             return serverSpawn ? Bukkit.getServer().getWorlds().get(0).getSpawnLocation() : world.getSpawnLocation();
         }

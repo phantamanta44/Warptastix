@@ -33,7 +33,7 @@ public class SpawnCommand extends WTXCommand {
                 throw new WTXCommandException();
         }
         flushConditions();
-        Warptastix.teleport(target, WTXConfig.SPAWN.getSpawn(target.getWorld()));
+        Warptastix.teleport(target, WTXConfig.SPAWN.getSpawnCentered(target.getWorld()));
         if (target.equals(sender))
             WTXLang.send(sender, "command.spawn.spawn");
         else
